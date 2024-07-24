@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import Google_icon from "../public/Google_Icon.png"
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import {USER_AVATAR, BG_Image} from "../utils/constants"
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -44,14 +45,13 @@ const Login = () => {
         const token = credential.accessToken;       
         const user = result.user;
         updateProfile(auth.currentUser, {
-          displayName: user.displayName, photoURL: "https://avatars.githubusercontent.com/u/82870578?v=4"
+          displayName: user.displayName, photoURL: USER_AVATAR
         }).then(() => {
           const {uid, email, displayName, photoURL} = auth.currentUser ;
           dispatch(addUser({uid, email, displayName, photoURL}))
         }).catch((error) => {
           console.log(error)
-        })
-        navigate("/browse");
+        })      
         
       }).catch((error) => {
         // Handle Errors here.
@@ -82,7 +82,7 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
-          console.log(user);
+          
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -114,7 +114,7 @@ const Login = () => {
     <>
       <Header />
       <div className="absolute max-w-full">
-        <img src="https://assets.nflxext.com/ffe/siteui/vlv3/fc164b4b-f085-44ee-bb7f-ec7df8539eff/d23a1608-7d90-4da1-93d6-bae2fe60a69b/IN-en-20230814-popsignuptwoweeks-perspective_alpha_website_large.jpg" />
+        <img src={BG_Image} alt="Background Image"/>
       </div>
       <div className="w-3/12 absolute p-10 bg-black mx-auto my-24 left-0 right-0 bg-opacity-80 max-w-full">
       <form >
